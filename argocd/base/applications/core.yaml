@@ -74,7 +74,7 @@ spec:
   destination:
     namespace: wordpress
     server: https://kubernetes.default.svc
-  project: application
+  project: applications
   source:
     helm:
       valueFiles:
