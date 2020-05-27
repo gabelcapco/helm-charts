@@ -61,9 +61,3 @@ spec:
     path: kustomize/argocd 
     repoURL: https://github.com/gabelcapco/helm-charts.git
     targetRevision: master
-    kustomize:
-      images:
-        - quay.io/dexidp/dex:v2.14.0
-        - argoproj/argocd-ui:v1.1.2
-        - argoproj/argocd:v1.4.2
-        - redis:5.0.3
