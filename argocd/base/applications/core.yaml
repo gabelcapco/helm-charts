@@ -58,7 +58,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: kustomize/argocd 
+    path: argocd/base 
     repoURL: https://github.com/gabelcapco/helm-charts.git
     targetRevision: master
 
