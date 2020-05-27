@@ -48,16 +48,37 @@ spec:
 
 --- 
 
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: argocd
-# spec:
-#   destination:
-#     namespace: argocd
-#     server: https://kubernetes.default.svc
-#   project: default
-#   source:
-#     path: kustomize/argocd 
-#     repoURL: https://github.com/gabelcapco/helm-charts.git
-#     targetRevision: master
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: kustomize/argocd 
+    repoURL: https://github.com/gabelcapco/helm-charts.git
+    targetRevision: master
+
+--- 
+
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordpress
+  namespace: argocd
+spec:
+  destination:
+    namespace: wordpress
+    server: https://kubernetes.default.svc
+  project: application
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: wordpress
+    repoURL: https://github.com/gabelcapco/helm-charts.git
+    targetRevision: HEAD
