@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  destination:
+    namespace: traefik
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: traefik
+    repoURL: https://github.com/gabelcapco/helm-charts.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+
+--- 
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mysql
+  namespace: argocd
+spec:
+  destination:
+    namespace: mysql
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: mysql
+    repoURL: https://github.com/gabelcapco/helm-charts.git
+    targetRevision: HEAD
+  # syncPolicy:
+  #   automated:
+  #     prune: true
+  #     selfHeal: true
+
+
+--- 
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: kustomize/argocd 
+    repoURL: https://github.com/gabelcapco/helm-charts.git
+    targetRevision: master
+    kustomize:
+      images:
+        - quay.io/dexidp/dex:v2.14.0
+        - argoproj/argocd-ui:v1.1.2
+        - argoproj/argocd:v1.4.2
+        - redis:5.0.3
