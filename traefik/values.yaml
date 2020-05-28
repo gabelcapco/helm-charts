@@ -21,7 +21,7 @@ serviceType: NodePort
 # loadBalancerSourceRanges: []
 whiteListSourceRange: []
 externalTrafficPolicy: Cluster
-replicas: 2
+replicas: 3
 # startupArguments:
 #   - "--ping"
 #   - "--ping.entrypoint=http"
